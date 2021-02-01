@@ -11,12 +11,13 @@ import { extractFormErrors } from '../utils/errors';
 import ErrorText from './ErrorText';
 import { ActionType } from '../../libs/src/entities/action';
 import SecondaryButton from './SecondaryButton';
+import useCredentialId from '../hooks/useCredentialId';
 
 const ModifyCredential = () => {
   const services = useContext(ServiceContext);
   const userNetwork = services.networkService.getUserStatus();
   const history = useHistory();
-  const credentialId = (history.location.state as any).id;
+  const credentialId = useCredentialId();
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(false);
   const formik = useFormik({

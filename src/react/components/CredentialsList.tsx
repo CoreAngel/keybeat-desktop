@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useHistory } from 'react-router-dom';
 import { Button, ButtonProps } from '@material-ui/core';
 import { Colors } from '../utils/colors';
+import useCredentialId from '../hooks/useCredentialId';
 
 export interface CredentialsListType {
   id: string;
@@ -15,7 +16,7 @@ interface Props {
 
 const CredentialsList = ({ items }: Props) => {
   const history = useHistory();
-  const credentialId = (history.location.state as any).id;
+  const credentialId = useCredentialId();
   const handleClick = (id: string) => {
     history.push('/credentials/read', {
       id,

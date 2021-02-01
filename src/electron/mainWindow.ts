@@ -3,7 +3,6 @@ import { app, BrowserWindow, shell, powerMonitor, globalShortcut } from 'electro
 import path from 'path';
 import isDev from 'electron-is-dev';
 import AppUpdater from './appUpdater';
-import MenuBuilder from './menu';
 import MainTray from './tray';
 import { ActivityActions } from '../react/services/activityService';
 import CommunicationManager from './communicationManager';
@@ -30,8 +29,8 @@ export default class MainWindow {
     // 800 x 700
     this.mainWindow = new BrowserWindow({
       show: false,
-      width: 1024,
-      height: 728,
+      width: 800,
+      height: 720,
       title: 'KeyBeat',
       backgroundColor: '#212121',
       icon: MainWindow.getAssetPath('icon.png'),
@@ -41,11 +40,9 @@ export default class MainWindow {
         enableRemoteModule: true,
       },
     });
+    this.mainWindow.removeMenu();
 
-    this.buildMenu();
     this.buildTray();
-    // await this.initContainer();
-
     this.onReadyToShow();
     this.onClose();
     this.onClosed();
@@ -58,15 +55,6 @@ export default class MainWindow {
     const devIndexPath = path.resolve(__dirname, '../index.html');
     const prodIndexPath = path.resolve(__dirname, 'index.html');
     await this.mainWindow.loadURL(`file:${isDev ? devIndexPath : prodIndexPath}`);
-  };
-
-  buildMenu = () => {
-    if (process.env.NODE_ENV !== 'production') {
-      if (this.mainWindow) {
-        const menuBuilder = new MenuBuilder(this.mainWindow);
-        menuBuilder.buildMenu();
-      }
-    }
   };
 
   setQuiting = (val: boolean) => {
@@ -140,11 +128,6 @@ export default class MainWindow {
       if (this.mainWindow === null) this.init();
     });
   };
-
-  // initContainer = async () => {
-  //   const appDataPath = app.getPath('appData');
-  //   await Container.initInstance(appDataPath);
-  // };
 
   onWindowStateChange = () => {
     this.mainWindow.on('blur', () => this.mainWindow.webContents.send(ActivityActions.REFRESH));

@@ -99,6 +99,9 @@
       "node_modules",
       "src/node_modules"
     ],
+    "testPathIgnorePatterns": [
+      "src/libs"
+    ],
     "setupFiles": [
       "./.erb/scripts/CheckBuildsExist.js"
     ]

@@ -14,6 +14,9 @@ export default class PasswordService {
   };
 
   public getPassword = async () => {
+    if (this.login === '') {
+      return null;
+    }
     const key = await getPassword('keybeat', this.login);
     return aesDecrypt(key, this.password);
   };

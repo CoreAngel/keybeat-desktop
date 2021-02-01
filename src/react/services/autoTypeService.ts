@@ -22,7 +22,7 @@ export default class AutoTypeService {
     this.password = '';
   };
 
-  public autoType = () => {
+  public autoType = (clearTime: number) => {
     if (this.password !== '') {
       setTimeout(async () => {
         if (this.type === AutotypeTypes.NORMAL) {
@@ -31,7 +31,7 @@ export default class AutoTypeService {
           await this.twoChannel();
         }
         this.clearPassword();
-      }, 500);
+      }, clearTime);
     }
   };
 

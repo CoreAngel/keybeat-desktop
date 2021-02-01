@@ -19,7 +19,7 @@ export default class CommunicationManager {
 
   private registerShortcut = () => {
     globalShortcut.register('CommandOrControl+F8', () => {
-      this.autotypeService.autoType();
+      this.autotypeService.autoType(30000);
     });
   };
 

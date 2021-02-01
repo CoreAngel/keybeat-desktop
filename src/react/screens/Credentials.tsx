@@ -8,11 +8,12 @@ import AddCredential from '../components/AddCredential';
 import DisplayCredential from '../components/DisplayCredential';
 import ModifyCredential from '../components/ModifyCredential';
 import Button from '../components/Button';
+import useCredentialId from '../hooks/useCredentialId';
 
 const Credentials = () => {
   const services = useContext(ServiceContext);
   const history = useHistory();
-  const credentialId = (history.location.state as any).id;
+  const credentialId = useCredentialId();
   const [loading, setLoading] = useState(true);
   const [credentials, setCredentials] = useState<CredentialsListType[]>([]);
 

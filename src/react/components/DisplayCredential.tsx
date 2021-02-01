@@ -8,11 +8,12 @@ import { ServiceContext } from '../ServiceContext';
 import { Colors } from '../utils/colors';
 import { sha } from '../../libs/src/functions/crypto';
 import SecondaryButton from './SecondaryButton';
+import useCredentialId from '../hooks/useCredentialId';
 
 const DisplayCredential = () => {
   const services = useContext(ServiceContext);
   const history = useHistory();
-  const credentialId = (history.location.state as any).id;
+  const credentialId = useCredentialId();
   const [credential, setCredential] = useState(null);
   const [showed, setShowed] = useState(false);
   const [password, setPassword] = useState('');
